@@ -6,7 +6,7 @@ export const updateTime = ({
   setDiffInSeconds,
   setDiffInMinutes,
 }: {
-  matchStartDt: Date
+  matchStartDt: Date | undefined
   setCurrentTime: (time: string) => void
   setDiffInSeconds: (time: number) => void
   setDiffInMinutes: (time: number) => void
@@ -14,11 +14,21 @@ export const updateTime = ({
   const time = getCurrentTimeString()
   setCurrentTime(time)
 
-  setDiffInSeconds(calculateTimeDiff(matchStartDt, getCurrentTime()).seconds())
-  setDiffInMinutes(calculateTimeDiff(matchStartDt, getCurrentTime()).minutes())
+  if (!matchStartDt) {
+    setDiffInSeconds(0)
+    setDiffInMinutes(0)
+  } else {
+    setDiffInSeconds(
+      calculateTimeDiff(matchStartDt, getCurrentTime()).seconds(),
+    )
+    setDiffInMinutes(
+      calculateTimeDiff(matchStartDt, getCurrentTime()).minutes(),
+    )
+  }
 }
 
-export const calculateTimeDiff = (start: Date, end: Date) => {
+export const calculateTimeDiff = (start?: Date, end?: Date) => {
+  if (!start) return moment.duration(0)
   return moment.duration(moment(end).diff(start))
 }
 

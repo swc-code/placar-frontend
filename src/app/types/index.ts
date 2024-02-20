@@ -34,3 +34,9 @@ export type ActiveMatchByUrl = {
   court: Court
   client: Client
 }
+
+export type GameCofig = {
+  maxSetNum: number
+  maxScPerSet: number
+  scValue: number
+}
