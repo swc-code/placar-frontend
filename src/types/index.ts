@@ -9,8 +9,8 @@ export type Court = {
 }
 
 export enum WinnerTp {
-  HOME_TEAM,
-  OUTSIDE_TEAM,
+  HOME_TEAM = 'HOME_TEAM',
+  OUTSIDE_TEAM = 'OUTSIDE_TEAM',
 }
 
 export type Set = {

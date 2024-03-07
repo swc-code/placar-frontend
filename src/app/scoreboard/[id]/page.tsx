@@ -12,7 +12,7 @@ import {
 } from './stopwatch/stopwatch'
 import { Api } from '@/lib/axios'
 import { AxiosError } from 'axios'
-import { ActiveMatchByUrl, Client, Court, Match, Set } from '@/types'
+import { ActiveMatchByUrl, Client, Court, Match, Set, WinnerTp } from '@/types'
 import { useQuery } from '@tanstack/react-query'
 import { io } from 'socket.io-client'
 
@@ -40,8 +40,9 @@ const defaultData = {
     outsideTeamDs: 'Time B',
     startedAt: null,
     sets: [],
-
-  }
+    homeTeamSc: 0,
+    outsideTeamSc: 0,
+  },
 }
 
 export default function GamePage({ params: { id } }: GamePageProps) {
@@ -117,7 +118,8 @@ export default function GamePage({ params: { id } }: GamePageProps) {
               numberOfSets:
                 data && data.match?.sets
                   ? data.match.sets.filter(
-                      (set) => set.winnerTp === 'HOME_TEAM',
+                      (set) =>
+                        set.hasFinished && set.winnerTp === WinnerTp.HOME_TEAM,
                     ).length
                   : 0,
               score: ongoinSet?.homeTeamSc ?? defaultData.match.homeTeamSc,
@@ -134,7 +136,7 @@ export default function GamePage({ params: { id } }: GamePageProps) {
               numberOfSets:
                 data && data.match?.sets
                   ? data.match.sets.filter(
-                      (set) => set.winnerTp === 'OUTSIDE_TEAM',
+                      (set) => set.winnerTp === WinnerTp.OUTSIDE_TEAM,
                     ).length
                   : 0,
               score: ongoinSet?.outsideTeamSc ?? 0,
