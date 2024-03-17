@@ -18,6 +18,8 @@ const nextAuthOptions: NextAuthOptions = {
           passwordDs: credentials?.password,
         })
 
+        console.log(req)
+
         return { ...data, accessToken: data.accessToken } || null
       },
     }),

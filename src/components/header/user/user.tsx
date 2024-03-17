@@ -22,7 +22,9 @@ export const User = () => {
 
         <DropdownMenu>
           <DropdownItem>
-            <label className="font-bold">{session?.user.client?.clientDs}</label>
+            <label className="font-bold">
+              {session?.user.client?.clientDs}
+            </label>
             <p>{session?.user.emailDs}</p>
           </DropdownItem>
           <DropdownItem key="settings">Minhas configurações</DropdownItem>
