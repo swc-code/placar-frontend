@@ -18,7 +18,7 @@ export const SelectDropdown = ({
     <Select label={label} items={data} placeholder={placeholder ?? ''}>
       {data.map((item) => (
         <SelectItem key={item.courtId} value={item.courtId}>
-          {item.nameDs}
+          {item.courtDs}
         </SelectItem>
       ))}
     </Select>

@@ -4,7 +4,7 @@ import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/react'
 import { Eye, EyeOff } from 'lucide-react'
 import { signIn } from 'next-auth/react'
 import { useSnackbar } from 'notistack'
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, MouseEvent, useState } from 'react'
 
 export const LoginCard = () => {
   const [data, setData] = useState({
@@ -24,7 +24,7 @@ export const LoginCard = () => {
     setData({ ...data, [name]: e.target.value })
   }
 
-  const handleLogin = async (e) => {
+  const handleLogin = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     const result = await signIn('credentials', {
       email: data.emailDs,

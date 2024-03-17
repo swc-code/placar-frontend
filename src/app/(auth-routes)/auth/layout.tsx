@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import '../../globals.css'
 import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
-import { nextAuthOptions } from '@/app/api/auth/[...nextauth]/route'
+import { nextAuthOptions } from '@/lib/auth-options'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
