@@ -9,7 +9,7 @@ export interface CardProps {
 
 export const Card = ({ children, title, className }: CardProps) => {
   return (
-    <NextUICard className={className ?? "w-[20rem] h-[15rem]"}>
+    <NextUICard className={className ?? 'w-[20rem] h-[15rem]'}>
       {title ? (
         <CardHeader className="flex items-center justify-center text-2xl">
           <label>{title}</label>
