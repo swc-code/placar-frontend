@@ -12,9 +12,10 @@ import {
 } from './stopwatch/stopwatch'
 import { Api } from '@/lib/axios'
 import { AxiosError } from 'axios'
-import { ActiveMatchByUrl, Client, Court, Match, Set, WinnerTp } from '@/types'
+import { Client, Court, Match, Set, WinnerTp } from '@/types'
 import { useQuery } from '@tanstack/react-query'
 import { io } from 'socket.io-client'
+import { enqueueSnackbar } from 'notistack'
 
 export interface GamePageProps {
   params: {
@@ -36,18 +37,35 @@ interface ApiData {
 
 const defaultData = {
   match: {
+    matchId: '',
     homeTeamDs: 'Time A',
     outsideTeamDs: 'Time B',
     startedAt: null,
-    sets: [],
+    sets: [] as Set[],
     homeTeamSc: 0,
     outsideTeamSc: 0,
   },
 }
 
 export default function GamePage({ params: { id } }: GamePageProps) {
+  const [client, setClient] = useState<Client>()
   const [data, setData] = useState<ApiData>()
   const [ongoinSet, setOngoinSet] = useState<Set>()
+
+  useEffect(() => {
+    const getClient = async() => {
+      try {
+        const {data} = await Api.get<{data: Client}>('/clients/court/' + id)
+
+        setClient(data.data)
+      } catch (error) {
+        if(error instanceof AxiosError)
+        enqueueSnackbar(error.response!.data.message)
+      }
+    } 
+
+    getClient()
+  }, [])
 
   useQuery({
     queryKey: ['findActiveMatchCourtId', id],
@@ -80,6 +98,9 @@ export default function GamePage({ params: { id } }: GamePageProps) {
         )
 
         setOngoinSet(ongoingSet)
+      } else {
+        setData(undefined)
+        setOngoinSet(undefined)
       }
     })
   }, [])
@@ -107,7 +128,7 @@ export default function GamePage({ params: { id } }: GamePageProps) {
   return (
     <main className="h-screen flex flex-col font-bold text-7xl w-full">
       <h1 className="bg-green-700 flex items-center justify-center py-20">
-        {data && data.client ? data?.client.clientDs : ''}
+        {client ? client.clientDs : ''}
       </h1>
 
       <div className="flex items-center justify-center h-full w-full">
@@ -122,7 +143,7 @@ export default function GamePage({ params: { id } }: GamePageProps) {
                         set.hasFinished && set.winnerTp === WinnerTp.HOME_TEAM,
                     ).length
                   : 0,
-              score: ongoinSet?.homeTeamSc ?? defaultData.match.homeTeamSc,
+              score: ongoinSet?.homeTeamSc ?? 0,
             }}
           />
           <Stopwatch
