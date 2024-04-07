@@ -16,6 +16,7 @@ import { Client, Court, Match, Set, WinnerTp } from '@/types'
 import { useQuery } from '@tanstack/react-query'
 import { io } from 'socket.io-client'
 import { enqueueSnackbar } from 'notistack'
+import { getApiUrlFromUri } from '@/helpers/formaters'
 
 export interface GamePageProps {
   params: {
@@ -87,10 +88,12 @@ export default function GamePage({ params: { id } }: GamePageProps) {
   })
 
   useEffect(() => {
-    const socket = io('http://localhost:3333')
+    console.log(getApiUrlFromUri(Api.getUri()))
+    const socket = io(getApiUrlFromUri(Api.getUri()))
 
     socket.on('on-' + id, (socketData: SocketData) => {
       setData({ ...data!, match: socketData.match })
+      console.log(socketData)
 
       if (socketData.dataTp !== 'END') {
         const ongoingSet = socketData.match!.sets.find(
