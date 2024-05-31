@@ -1,6 +1,5 @@
 'use client'
 
-import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { Scoreboard } from '@/components/scoreboard/scoreboard'
 import { Stopwatch } from '@/components/stopwatch/stopwatch'
@@ -54,16 +53,16 @@ export default function GamePage({ params: { id } }: GamePageProps) {
   const [ongoinSet, setOngoinSet] = useState<Set>()
 
   useEffect(() => {
-    const getClient = async() => {
+    const getClient = async () => {
       try {
-        const {data} = await Api.get<{data: Client}>('/clients/court/' + id)
+        const { data } = await Api.get<{ data: Client }>('/clients/court/' + id)
 
         setClient(data.data)
       } catch (error) {
-        if(error instanceof AxiosError)
-        enqueueSnackbar(error.response!.data.message)
+        if (error instanceof AxiosError)
+          enqueueSnackbar(error.response!.data.message)
       }
-    } 
+    }
 
     getClient()
   }, [])
@@ -167,14 +166,15 @@ export default function GamePage({ params: { id } }: GamePageProps) {
             }}
           />
           <div className="flex items-center justify-center relative my-5">
-            <Image
+            {/* <Image
               alt="imagem propaganda"
               src="https://linktr.ee/og/image/gymflixbirigui.jpg"
               style={{
                 objectFit: 'cover',
               }}
               fill
-            />
+            /> */}
+            Propaganda
           </div>
         </div>
       </div>
