@@ -30,6 +30,7 @@ export const Button = ({
       onClick={(e) => handleClick(e)}
       variant={variant ?? 'ghost'}
       className={className ?? ''}
+      type="submit"
     >
       {description}
     </NextUiButton>

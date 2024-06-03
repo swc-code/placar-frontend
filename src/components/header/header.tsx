@@ -25,11 +25,11 @@ export const Header = () => {
   const menu = [
     {
       title: 'Partidas',
-      url: '/management/matches',
+      url: '/matches',
     },
     {
       title: 'Quadras',
-      url: '/management/courts',
+      url: '/courts',
     },
   ]
 
@@ -41,7 +41,7 @@ export const Header = () => {
     <Navbar className="bg-success bg-opacity-50 flex items-center">
       <NavbarContent>
         <NavbarItem className="flex h-full items-center">
-          <button onClick={() => router.push('/management')}>
+          <button onClick={() => router.push('/')}>
             <Home size={20} />
           </button>
         </NavbarItem>
@@ -49,7 +49,7 @@ export const Header = () => {
           <NavbarItem>
             <DropdownTrigger>
               <Button disableRipple variant="light" endContent={icons.chevron}>
-                Scoreboard
+                Virtual Arena
               </Button>
             </DropdownTrigger>
           </NavbarItem>

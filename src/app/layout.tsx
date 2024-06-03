@@ -9,7 +9,7 @@ import { NextAuthSessionProvider } from '@/components/providers/session-provider
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'SWC',
+  title: 'Virtual Arena',
 }
 
 export default async function RootLayout({

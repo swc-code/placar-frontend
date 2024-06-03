@@ -30,7 +30,7 @@ export const LoginCard = () => {
       email: data.emailDs,
       password: data.passwordDs,
       redirect: true,
-      callbackUrl: '/management',
+      callbackUrl: '/',
     })
 
     if (result?.error)
@@ -46,36 +46,38 @@ export const LoginCard = () => {
   }
 
   return (
-    <Card className="w-[500px]">
-      <CardHeader>Fazer Login</CardHeader>
-      <CardBody className="gap-4">
-        <TextInput
-          data={data.emailDs}
-          label="Email"
-          name="emailDs"
-          setData={handleEdit}
-          type="text"
-        />
-        <TextInput
-          data={data.passwordDs}
-          label="Senha"
-          name="passwordDs"
-          setData={handleEdit}
-          type={isVisible ? 'text' : 'password'}
-          endContent={
-            <button
-              className="focus:outline-none"
-              type="button"
-              onClick={toggleVisibility}
-            >
-              {isVisible ? <Eye size={22} /> : <EyeOff size={22} />}
-            </button>
-          }
-        />
-      </CardBody>
-      <CardFooter className="w-full flex justify-center">
-        <Button description="Entrar" handleClick={handleLogin} />
-      </CardFooter>
-    </Card>
+    <form>
+      <Card className="w-[500px]">
+        <CardHeader>Fazer Login</CardHeader>
+        <CardBody className="gap-4">
+          <TextInput
+            data={data.emailDs}
+            label="Email"
+            name="emailDs"
+            setData={handleEdit}
+            type="text"
+          />
+          <TextInput
+            data={data.passwordDs}
+            label="Senha"
+            name="passwordDs"
+            setData={handleEdit}
+            type={isVisible ? 'text' : 'password'}
+            endContent={
+              <button
+                className="focus:outline-none"
+                type="button"
+                onClick={toggleVisibility}
+              >
+                {isVisible ? <Eye size={22} /> : <EyeOff size={22} />}
+              </button>
+            }
+          />
+        </CardBody>
+        <CardFooter className="w-full flex justify-center">
+          <Button description="Entrar" handleClick={handleLogin} />
+        </CardFooter>
+      </Card>
+    </form>
   )
 }
